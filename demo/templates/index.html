@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
+    <title>Поисковик</title>
+</head>
+<body>
+{#    <h2>{{ header }}</h2>#}
+{#    <p>{{ message }}</p>#}
+
+<div class="default">
+    <div class="container">
+        <form method="POST" action="search">
+            {% csrf_token %}
+            <div class="mt-5 m-auto w-50">
+                <div>
+                    <h3 class="text-center font-weight-bold pb-2">Введите поисковое слово:</h3>
+                </div>
+
+                <div>
+                    <input class="form-control" value="{{ query }}" id="query" name="query">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container pt-5">
+        {% if data.items %}
+            {% for key, value in data.items %}
+                <div class="border p-2 mb-2" >
+                    <div>
+                        <a href="movie/{{ key }}">Документ №{{ key }}</a>
+                    </div>
+                    <div>
+                        <strong>Сходимость: {{ value }}</strong>
+                    </div>
+{#                    <p>{{ key }}: {{ value }}</p>#}
+                </div>
+            {% endfor %}
+        {% else %}
+            По данному запросу ничего не найдено
+        {% endif %}
+    </div>
+
+    <div class="container">
+
+    </div>
+</div>
+</body>
+</html>
